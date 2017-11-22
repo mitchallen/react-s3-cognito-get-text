@@ -3,22 +3,18 @@
     Author: Mitch Allen
 */
 
-import React from 'react';
-// import PropTypes from 'prop-types';
+import S3Connect from '@mitchallen/react-s3-connect';
 
-class S3CognitoGetText extends React.Component {
-  render() {
-    return (
-    	<div>
-      		<div>Package: @mitchallen/react-s3-cognito-get-text</div>
-      		<div>Component: S3CognitoGetText</div>
-      	</div>
-    );
-  }
+export default async function S3CognitoGetText( params ) {
+
+    const s3 = await S3Connect( params );
+
+    let { file, bucket } = params;
+          
+    return s3.getObject({
+        Bucket: bucket,
+        Key: file
+    })
+    .promise()
+    .then( (data) => data.Body.toString('utf-8') );
 }
-
-// S3CognitoGetText.propTypes = {
-//   // someProp: PropTypes.isRequired,
-// };
-
-export default S3CognitoGetText;
