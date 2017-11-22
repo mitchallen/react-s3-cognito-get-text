@@ -30,7 +30,48 @@ Get a Cognito protected text file from an S3 bucket
 
 ## Usage
 
-TODO
+Here is an example of retrieving a Cognito secured JSON file from S3:
+
+```
+import S3CognitoGetText from '@mitchallen/react-s3-cognito-get-text';
+
+export default async function S3GetJsonFile( params ) {
+    return S3CognitoGetText( params )
+    .then( data => JSON.parse(data) );
+}
+```
+
+How to call the method above:
+
+```
+import AWS from "aws-sdk";
+import authUser from "@mitchallen/react-cognito-auth-user";
+const testJsonFile = 'cognito/private/demo.json'
+
+S3GetJsonFile({ 
+    AWS: AWS,
+    authUser: authUser,
+    bucket: BUCKET,
+    file: testJsonFile, 
+    userPoolId: USER_POOL_ID,
+    clientId: APP_CLIENT_ID,
+    region: REGION, 
+    identyPoolId: IDENTITY_POOL_ID
+})
+.then((data) => {
+    alert(JSON.stringify(data));
+})
+.catch(function(err) {
+    alert(err);
+});
+```
+
+* * *
+
+### Securing an S3 Bucket for Cognito
+
+For information on how to secure a bucket for Cognito access, see:
+* [@mitchallen/react-s3-connect](https://www.npmjs.com/package/@mitchallen/react-s3-connect)
    
 * * *
  
